@@ -1,0 +1,11 @@
+{
+  "name": "supportdesk",
+  "version": "1.0.0",
+  "description": "ticket app",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "author": "Abdurashid",
+  "license": "MIT"
+}
