@@ -70,7 +70,12 @@ const loginUser = asyncHandler(async (req, res) => {
 // /api/users/administer
 // private
 const administer = asyncHandler(async (req, res) => {
-    res.send('Protected fuck')
+    const user = {
+        id: req.user._id,
+        email: req.user.email,
+        name: req.user.name
+    }
+    res.status(200).json(user)
 })
 
 const generateToken = (id) => {
