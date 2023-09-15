@@ -2,6 +2,7 @@ const express = require('express')
 const dotenv = require('dotenv').config()
 const {errorHandler} = require('./midddleware/errorMiddleware')
 const connectDB = require('./db/db')
+const morgan = require('morgan')
 
 //connect to database
 connectDB()
