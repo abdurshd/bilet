@@ -1,7 +1,7 @@
 
 # Getting Started
 
-For running both server and client :
+For running both server and client (using concurrently):
 
 ```bash
 npm run dev
