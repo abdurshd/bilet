@@ -5,7 +5,7 @@ const jwt = require('jsonwebtoken')
 
 // register user
 // /api/users/register
-// public
+// public route
 const registerUser = asyncHandler(async (req, res) => {
     const {name, email, password} = req.body
 
@@ -46,7 +46,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
 // user login
 // /api/users/login
-// public
+// public route
 const loginUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body
     
@@ -69,7 +69,7 @@ const loginUser = asyncHandler(async (req, res) => {
 
 // register user
 // /api/users/administer
-// private
+// private route
 const administer = asyncHandler(async (req, res) => {
     const user = {
         id: req.user._id,
@@ -79,8 +79,26 @@ const administer = asyncHandler(async (req, res) => {
     res.status(200).json(user)
 })
 
+const changeUsers = asyncHandler(async (req, res) => {
+    const { id } = req.params
+    const { name, email } = req.body
+
+    const user = await User.findById(id)
+
+    if (!user) {
+        res.status(400).send('User is not found')
+    }
+    
+    user.email = email
+    user.name = name
+    await user.save()
+
+    res.status(200).send(`Your changed email is ${email} and changed name is ${name}`)
+
+})
+
 const generateToken = (id) => {
     return jwt.sign({id}, process.env.JWT_SECRET, {expiresIn: '1h'})
 }
 
-module.exports = {registerUser, loginUser, administer}
+module.exports = {registerUser, loginUser, administer, changeUsers}
