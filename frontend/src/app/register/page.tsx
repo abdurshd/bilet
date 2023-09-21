@@ -1,6 +1,8 @@
 'use client'
 import {useState} from 'react'
 import {toast} from 'react-toastify'
+import {useSelector, useDispatch} from 'react-redux'
+import {register} from "@/features/auth/authSlice"
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -10,6 +12,8 @@ export default function Register() {
     password2: ''
   })
 
+  const dispatch = useDispatch();
+  const {user, isLoading, isSuccess, message} = useSelector(state => state.auth)
   const {name, email, password, password2} = form
 
   
