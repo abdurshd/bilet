@@ -1,9 +1,9 @@
 'use client'
 import {useState} from 'react'
 import {toast} from 'react-toastify'
-import {useSelector, useDispatch} from 'react-redux'
-import {register} from "@/features/auth/authSlice"
-import { useAppSelector } from '../store'
+import {useDispatch} from 'react-redux'
+import {register} from "@/redux/features/auth/authSlice"
+import { useAppSelector } from '../../redux/store'
 
 export default function Register() {
   const [form, setForm] = useState({
