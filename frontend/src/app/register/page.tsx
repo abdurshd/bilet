@@ -1,9 +1,14 @@
 'use client'
 import {useState} from 'react'
 import {toast} from 'react-toastify'
-import {useDispatch} from 'react-redux'
 import {register} from "@/redux/features/auth/authSlice"
-import { useAppSelector } from '../../redux/store'
+import { useAppSelector, useAppDispatch } from '@/redux/store'
+
+export type UserData = {
+  name?: string;
+  email: string;
+  password: string;
+}
 
 export default function Register() {
   const [form, setForm] = useState({
@@ -13,7 +18,7 @@ export default function Register() {
     password2: ''
   })
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const {user, isLoading, isSuccess, message} = useAppSelector(state => state.auth)
   const {name, email, password, password2} = form
 
@@ -23,6 +28,13 @@ export default function Register() {
     
     if(password !== password2){
       toast.error('Password does not match')
+    } else {
+      const userData: UserData = {
+        name,
+        email,
+        password
+      }
+      dispatch(register(userData))
     }
   }
   
@@ -37,14 +49,14 @@ export default function Register() {
     <div className="flex min-h-screen flex-col items-center p-24">
       <div>
         <h1>
-          Register 
+          Register {user}
         </h1>
         <h3>
           Please register to login
         </h3>
       </div>
       <div>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} >
           <input 
           id="name" 
           name="name" 
@@ -53,6 +65,7 @@ export default function Register() {
           required
           onChange={onChange} 
           placeholder='your name' 
+          className='p-3 m-4 flex rounded-lg bg-gray-300  text-emerald-600'
           />
           <input 
           id="email" 
@@ -62,6 +75,7 @@ export default function Register() {
           required
           onChange={onChange} 
           placeholder='your email' 
+          className='p-3 m-4 flex rounded-lg bg-gray-300 text-emerald-600'
           />
           <input 
           id="password" 
@@ -71,17 +85,19 @@ export default function Register() {
           required
           onChange={onChange} 
           placeholder='your password' 
+          className='p-3 m-4 flex rounded-lg bg-gray-300 text-emerald-600'
           />
           <input 
-          id="password" 
+          id="password2" 
           name="password2"
           type="password" 
           value={password2} 
           required
           onChange={onChange} 
           placeholder='your password again' 
+          className='p-3 m-4 flex rounded-lg bg-gray-300 text-emerald-600'
           />
-          <button>Submit</button>
+          <button className='border-l-emerald-400 bg-green-600 p-2 m-2 ml-36 rounded-xl'>Submit</button>
         </form>
       </div>
     </div>

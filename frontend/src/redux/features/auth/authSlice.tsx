@@ -1,7 +1,8 @@
+import { UserData } from "@/app/register/page";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 type InitialState = {
-    user: null,
+    user: null | string,
     isError: boolean,
     isSuccess: boolean,
     isLoading: boolean,
@@ -15,8 +16,14 @@ const initialState: InitialState = {
     message: ''
 } 
 
-export const register = createAsyncThunk('auth/register', async (user, thunkAPI) => {
-    console.log(user)
+//register user
+export const register = createAsyncThunk('auth/register', async (userData: UserData, thunkAPI) => {
+    console.log(userData)
+})
+
+//login user
+export const login = createAsyncThunk('auth/login', async (userData: UserData, thunkAPI) => {
+    console.log(userData)
 })
 
 export const authSlice = createSlice({
